@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaAws } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -13,19 +14,31 @@ const Navbar = () => {
 
         <div className="w-full h-full flex items-center justify-center">
 
-            <ul  className="flex gap-[25px] text-[22px] justify-center items-center text-white ">
-                <li className="hover:scale-90 transition-all duration-300 cursor-pointer hover:text-amber-400">
-                    Services
-                </li>
-                  <li className="hover:scale-90 transition-all duration-300 cursor-pointer hover:text-amber-400">
-                    Pricing
-                </li>
-                  <li className="hover:scale-90 transition-all duration-300 cursor-pointer hover:text-amber-400">
-                    Documentation
-                </li>
-                  <li className="hover:scale-90 transition-all duration-300 cursor-pointer hover:text-amber-400">
-                    Support
-                </li>
+            <ul  className="flex gap-[25px] text-[22px] justify-center items-center ">
+
+          <NavLink to={"/"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer no-underline font-semibold
+                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
+                      Home
+                  </NavLink>
+
+
+          <NavLink to={"/service"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
+                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
+                    Service
+                  </NavLink>
+
+
+          <NavLink to={"/about"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
+                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
+                    About Us
+                  </NavLink>
+
+
+          <NavLink to={"/contact"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
+                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
+                      Contact
+                  </NavLink>
+
             </ul>
         </div>
 

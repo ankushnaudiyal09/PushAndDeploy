@@ -1,0 +1,57 @@
+@tailwind utilities;
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-clear-button {
+  display: none;
+}
+
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-outer-spin-button {
+  display: none;
+}
+
+
+/* .hero-container {
+  height: 100vh;
+  position: relative;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #00f0ff, #ff2d75);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cta-primary {
+  background: linear-gradient(90deg, #00f0ff, #0095ff);
+  color: #05050a;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.cta-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+} */
+
+
+
+
+
+
+
