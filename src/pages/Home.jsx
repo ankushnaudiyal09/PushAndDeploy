@@ -426,9 +426,9 @@ const FuturisticDevOpsLanding = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <h1>
-                            <span className="gradient-text">Cloud Native</span>
+                            <span className="gradient-text">Push And</span>
                             <br />
-                            <span className="highlight">Infrastructure</span>
+                            <span className="highlight">Deploy</span>
                         </h1>
                         <p className="hero-subtitle">
                             We transform infrastructure into competitive advantage with
@@ -1308,7 +1308,7 @@ const FuturisticDevOpsLanding = () => {
           width: 4px;
           height: 0;
           background: linear-gradient(to bottom, var(--primary), var(--secondary));
-          transition: height 2s ease;
+          transition: height 1s ease;
         }
         
         .feature-card:hover::before {
