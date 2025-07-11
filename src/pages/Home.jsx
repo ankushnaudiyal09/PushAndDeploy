@@ -1542,7 +1542,7 @@ const FuturisticDevOpsLanding = () => {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 4rem auto 0;
@@ -1558,7 +1558,7 @@ const FuturisticDevOpsLanding = () => {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   backdrop-filter: blur(10px);
   transform-style: preserve-3d;
 }
@@ -1626,15 +1626,15 @@ const FuturisticDevOpsLanding = () => {
 
 .popular-badge {
   position: absolute;
-  top: -12px;
-  right: 20px;
+  top: 3px;
+  right: 60px;
   background: var(--accent);
   color: var(--darker);
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
   font-size: 0.8rem;
   font-weight: bold;
-  z-index: 3;
+  z-index: 33;
 }
 
 .select-indicator {
