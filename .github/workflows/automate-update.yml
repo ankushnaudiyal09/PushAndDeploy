@@ -24,3 +24,18 @@ jobs:
 
       - name: "Run the App"
         run: npm run dev
+
+
+    - name: "Build the App"
+        run: npm run build
+
+      - name: "Deploy to Netlify"
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: ./dist  # change to ./build if CRA
+          production-branch: main
+          deploy-message: "Deployed from GitHub Actions"
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+        env:
+          CI: true
