@@ -1,32 +1,26 @@
-#name of the file
-
 name: "automate-update"
 
-
 on:
-    push:
-        branches:
-            - main
-
-
-
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual trigger via GitHub UI
 
 jobs:
-    automate-update:
-        runs-on: ubuntu-latest
+  automate-update:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: "setup Nodejs"
-              uses: actions/setup-node@v4
-              with:
-                node-version: '21'
+    steps:
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
 
-            - name: 'cloning the repo'
-              uses: actions/checkout@v2
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
 
-            - name: 'installing dependency'
-              run: npm install
+      - name: "Install Dependencies"
+        run: npm install
 
-            - name: "run the file"
-              run: npm run dev
-
+      - name: "Run the App"
+        run: npm run dev
