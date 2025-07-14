@@ -1,10 +1,53 @@
+# name: "automate-update"
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:  # Allows manual trigger via GitHub UI
+
+# jobs:
+#   automate-update:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: "Setup Node.js"
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '21'
+
+#       - name: "Checkout Repository"
+#         uses: actions/checkout@v4
+
+#       - name: "Install Dependencies"
+#         run: npm install
+
+#       - name: "Run the App"
+#         run: npm run dev
+
+
+#       - name: "Build the App"
+#         run: npm run build
+
+#       - name: "Deploy to Netlify"
+#         uses: nwtgck/actions-netlify@v2.0
+#         with:
+#           publish-dir: ./dist  # change to ./build if CRA
+#           production-branch: main
+#           deploy-message: "Deployed from GitHub Actions"
+        #   netlify-auth-token: ${{secrets.NETLIFY_AUTH_TOKEN }}
+#           netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
+#         env:
+#           CI: true
+
+
 name: "automate-update"
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allows manual trigger via GitHub UI
+  workflow_dispatch:
 
 jobs:
   automate-update:
@@ -22,20 +65,19 @@ jobs:
       - name: "Install Dependencies"
         run: npm install
 
-      - name: "Run the App"
-        run: npm run dev
+      - name: "Build Project"
+        run: npm run build  # Make sure your build creates dist/ or build/
 
-
-    - name: "Build the App"
-        run: npm run build
+      - name: "Install Netlify CLI"
+        run: npm install -g netlify-cli
 
       - name: "Deploy to Netlify"
-        uses: nwtgck/actions-netlify@v2.0
-        with:
-          publish-dir: ./dist  # change to ./build if CRA
-          production-branch: main
-          deploy-message: "Deployed from GitHub Actions"
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
         env:
-          CI: true
+            NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+            netlify deploy \
+            --dir=dist \
+            --prod \
+            --site=$NETLIFY_SITE_ID
+
