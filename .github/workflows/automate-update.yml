@@ -73,8 +73,8 @@ jobs:
 
       - name: "Deploy to Netlify"
         env:
-         NETLIFY_AUTH_TOKEN: ${{ github.NETLIFY_AUTH_TOKEN }}
-         NETLIFY_SITE_ID: ${{ github.NETLIFY_SITE_ID }}
+         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
             export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
             netlify deploy \
