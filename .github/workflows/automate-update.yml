@@ -68,6 +68,10 @@ jobs:
       - name: "Build Project"
         run: npm run build  # Make sure your build creates dist/ or build/
 
-
-
+      - name: "Deploy to Netlify using CLI"
+        run: |
+          npm install -g netlify-cli
+          export NETLIFY_AUTH_TOKEN=${{ secrets.NETLIFY_AUTH_TOKEN }}
+          export NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID }}
+          netlify deploy --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID --dir=dist --prod
 
