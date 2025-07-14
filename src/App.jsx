@@ -1,4 +1,4 @@
-import React, { useState , useRef } from 'react';
+import React, { useState , useRef , useEffect} from 'react';
 import './App.css'
 import Home from './pages/Home'
 import Navbar from "./component/Navbar"
@@ -10,6 +10,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import MainLayout from './pages/MainLayout';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Text } from '@react-three/drei';
 
 
 function App() {
