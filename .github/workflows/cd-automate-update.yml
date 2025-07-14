@@ -34,6 +34,6 @@ jobs:
 
               
             - name: "deploy to vercel"
-              run: vercel --prod --token=${{secrets.VERCEL_TOKEN}} --confirm --name=pushAndDeploy
+              run: vercel --prod --token=${{secrets.VERCEL_TOKEN}} --yes --name=pushAndDeploy
 
     
