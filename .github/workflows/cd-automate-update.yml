@@ -1,0 +1,39 @@
+name: "Cd pipiline for automate-update"
+
+
+on:
+    workflow_run:   #  this event is used for on when ci of the file is done then it will happen
+        workflows: ["ci for automate-update"]
+        types:
+            - completed
+
+
+
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: production
+
+        steps:
+
+            - name: "Setup nodeJs"
+              uses: actions/setup-node@v4
+              with:
+                node-version: '21'
+
+            - name: "setup vercel cli"
+              run: npm install -g vercel
+
+            - name: "Download build files"
+              uses: actions/download-artifact@v4
+              with:
+                name: build 
+                run-id: ${{ github.event.workflow_run.id}} 
+                github-token: ${{github.token}}
+
+              
+            - name: "deploy to vercel"
+              run: vercel --prod --token=${{secrets.VERCEL_TOKEN}} --confirm --name=pushAndDeploy
+
+    
