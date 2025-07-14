@@ -6,7 +6,8 @@ name: "automate-update"
 on:
     push:
         branches:
-            -main
+            - main
+
 
 
 
