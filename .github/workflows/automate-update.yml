@@ -1,0 +1,31 @@
+#name of the file
+
+name: "automate-update"
+
+
+on:
+    push:
+        branches:
+            -main
+
+
+
+jobs:
+    automate-update:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: "setup Nodejs"
+              uses: actions/setup-node@v4
+              with:
+                node-version: '21'
+
+            - name: 'cloning the repo'
+              uses: actions/checkout@v2
+
+            - name: 'installing dependency'
+              run: npm install
+
+            - name: "run the file"
+              run: npm run dev
+
