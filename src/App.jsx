@@ -13,6 +13,7 @@ import MainLayout from './pages/MainLayout';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
+import Services from './pages/Services';
 
 
 function App() {
@@ -137,6 +138,11 @@ function App() {
         {
           path:"/",
           element:<Home  />
+        },
+        {
+          path:"/service",
+          element:<Services />
+
         },
         {
           path:"/about",
