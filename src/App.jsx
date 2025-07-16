@@ -14,7 +14,8 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import Services from './pages/Services';
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from '@vercel/analytics/react';
+
 
 function App() {
 
@@ -133,7 +134,7 @@ function App() {
   const appRouter = createBrowserRouter([
     {
       path:"/",
-      element:<>  <CyberMouse   />   <MainLayout  /></>,
+      element:<>  <CyberMouse   />  <Analytics /> <MainLayout  /></>,
       children:[
         {
           path:"/",
