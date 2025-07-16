@@ -14,7 +14,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import Services from './pages/Services';
-
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
 
