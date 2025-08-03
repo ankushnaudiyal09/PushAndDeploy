@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
-import * as THREE from 'three';
+
 
 // ==================== 3D CLOUD CLUSTER MODEL ====================
 const CloudClusterModel = () => {
@@ -68,7 +68,6 @@ const CloudClusterModel = () => {
         </group>
     );
 };
-
 
 
 // ==================== MAIN COMPONENT ====================
@@ -154,30 +153,6 @@ const FuturisticDevOpsLanding = () => {
             icon: "🔒",
             stats: "100% compliance"
         },
-        {
-            title: "Zero-Downtime Deploys",
-            description: "Automated blue-green deployments with instant rollback",
-            icon: "⚡",
-            stats: "99.99% uptime"
-        },
-        {
-            title: "Infra as Code",
-            description: "Version-controlled infrastructure with Terraform",
-            icon: "λ",
-            stats: "90% faster provisioning"
-        },
-        {
-            title: "K8s Orchestration",
-            description: "Managed clusters with auto-scaling",
-            icon: "⎈",
-            stats: "15,000+ containers"
-        },
-        {
-            title: "Security First",
-            description: "Built-in vulnerability scanning",
-            icon: "🔒",
-            stats: "100% compliance"
-        }
     ];
 
     const testimonials = [
@@ -292,13 +267,10 @@ const FuturisticDevOpsLanding = () => {
     return (
         <div className="futuristic-devops-site">
 
-            {/* <CyberMouse   /> */}
-
-
             {/* ============ HERO SECTION ============ */}
             <section className="hero-section">
                 {/* 3D Canvas */}
-                <div className="hero-canvas">
+          <div className="hero-canvas">
                     <Canvas shadows camera={{ position: [0, 1, 5], fov: 50 }}>
                         <ambientLight intensity={0.5} />
                         <pointLight position={[10, 10, 10]} intensity={1} castShadow />
@@ -316,11 +288,11 @@ const FuturisticDevOpsLanding = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <h1>
-                            <span className="gradient-text">Push And</span>
+                            <span className="">Push And</span>
                             <br />
                             <span className="highlight">Deploy</span>
                         </h1>
-                        <p className="hero-subtitle">
+                        <p className="text-sm sm:text-xl md:text-2xl">
                             We transform infrastructure into competitive advantage with
                             battle-tested automation frameworks and cloud-native architectures
                         </p>
@@ -332,9 +304,9 @@ const FuturisticDevOpsLanding = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
                     >
-                        <button className="cta-primary interactive hover:scale-90 duration-200 transition-all">
-                            Request Architecture Review
-                            <span className="arrow">→</span>
+                        <button className="cta-primary interactive hover:scale-90 duration-200 transition-all w-[200px] text-sm md:text-2xl my-1 md:my-2 py-1 md:py-2">
+                            Get Connect
+                            <span className="arrow-home">→</span>
                         </button>
                         <button className="cta-secondary interactive  hover:scale-90 duration-200 transition-all">
                             <div className="play-icon">▶</div>
@@ -438,7 +410,7 @@ const FuturisticDevOpsLanding = () => {
             <section className="features-section">
                 <div className="section-header">
                     <h2>
-                        <span className="gradient-text">Enterprise-Grade</span> Capabilities
+                        <span className="gradient-text text-4xl md:text-6xl">Enterprise-Grade</span> Capabilities
                     </h2>
                     <p>
                         Comprehensive DevOps solutions tailored for your technology stack
@@ -544,178 +516,6 @@ const FuturisticDevOpsLanding = () => {
 
             </section>
 
-            {/* ============ INTERACTIVE PRICING CARDS ============ */}
-            <section className="pricing-section">
-                <div className="section-header">
-                    <h2><span className="neon-text">Flexible Plans</span> for Every Need</h2>
-                    <p>Choose the perfect solution for your infrastructure</p>
-                </div>
-
-                <div className="pricing-grid">
-                    {[
-                        {
-                            id: 1,
-                            title: "Starter",
-                            price: "$999",
-                            period: "/month",
-                            description: "Perfect for small teams getting started",
-                            features: [
-                                "Up to 10 nodes",
-                                "24/5 Support",
-                                "Basic Monitoring",
-                                "Weekly Backups"
-                            ],
-                            accent: "#00f0ff"
-                        },
-                        {
-                            id: 2,
-                            title: "Enterprise",
-                            price: "$4,999",
-                            period: "/month",
-                            description: "For growing businesses at scale",
-                            features: [
-                                "Up to 100 nodes",
-                                "24/7 Priority Support",
-                                "Advanced Monitoring",
-                                "Daily Backups",
-                                "Dedicated Engineer"
-                            ],
-                            accent: "#ff2d75",
-                            popular: true
-                        },
-                        {
-                            id: 3,
-                            title: "Custom",
-                            price: "Let's Talk",
-                            period: "",
-                            description: "Tailored solutions for complex needs",
-                            features: [
-                                "Unlimited Nodes",
-                                "Dedicated Team",
-                                "Custom SLAs",
-                                "Onsite Support",
-                                "Security Audits"
-                            ],
-                            accent: "#8b5cf6"
-                        }
-                    ].map((plan) => (
-                        <motion.div
-                            key={plan.id}
-                            className={`pricing-card ${selectedPlan === plan.id ? 'selected' : ''} ${plan.popular ? 'popular' : ''}`}
-                            onClick={() => setSelectedPlan(plan.id)}
-                            initial={{ scale: 1 }}
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: `0 0 30px ${plan.accent}`
-                            }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                            style={{ '--accent': plan.accent }}
-                        >
-                            {plan.popular && <div className="popular-badge">Most Popular</div>}
-
-                            <div className="card-content">
-                                <h3>{plan.title}</h3>
-                                <div className="price">
-                                    <span>{plan.price}</span>{plan.period}
-                                </div>
-                                <p className="description">{plan.description}</p>
-
-                                <ul className="features">
-                                    {plan.features.map((feature, i) => (
-                                        <motion.li
-                                            key={i}
-                                            initial={{ x: -10, opacity: 0 }}
-                                            animate={{
-                                                x: selectedPlan === plan.id ? 0 : -10,
-                                                opacity: selectedPlan === plan.id ? 1 : 0.8
-                                            }}
-                                            transition={{ delay: i * 0.05 }}
-                                        >
-                                            <svg viewBox="0 0 24 24" width="16" height="16">
-                                                <path fill="var(--accent)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                                            </svg>
-                                            {feature}
-                                        </motion.li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div className="select-indicator">
-                                <motion.div
-                                    className="selection-circle"
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: selectedPlan === plan.id ? 1 : 0 }}
-                                    transition={{ type: "spring" }}
-                                />
-                            </div>
-
-                            <motion.div
-                                className="card-glow"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: selectedPlan === plan.id ? 0.3 : 0 }}
-                            />
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ============ 3D HOLOGRAPHIC TESTIMONIAL CAROUSEL ============ */}
-            <section className="holographic-carousel">
-                <div className="section-header">
-                    <h2><span className="neon-text">Client Voices</span> in the Cloud</h2>
-                    <p>What industry leaders say about our platform</p>
-                </div>
-
-                <div className="holo-platform-3d">
-                    <div className="holo-grid-lines"></div>
-                    <div className="holo-projector">
-                        <div className="laser-beam"></div>
-                    </div>
-
-                    <div className="carousel-container-3d">
-                        <div
-                            className="carousel-track-3d"
-                            style={{ transform: `translateX(-${activeSet * 100}%)` }}
-                        >
-                            {[...testimonials, ...testimonials].map((testimonial, index) => (
-                                <motion.div
-                                    key={`${testimonial.id}-${index}`}
-                                    className="holo-card-3d"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    whileHover={{ scale: 1.05 }}
-                                >
-                                    <div className="holo-avatar" style={{ '--hue': index * 40 }}>
-                                        {testimonial.avatar}
-                                    </div>
-                                    <p className="holo-quote">"{testimonial.quote}"</p>
-                                    <div className="holo-author">
-                                        <h4>{testimonial.name}</h4>
-                                        <p>{testimonial.role}, {testimonial.company}</p>
-                                    </div>
-                                    <div className="holo-glow"></div>
-                                    <div className="card-reflection"></div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="carousel-controls">
-                    {Array(Math.ceil(testimonials.length / 3)).fill(0).map((_, index) => (
-                        <button
-                            key={index}
-                            className={`control-dot ${activeSet === index ? 'active' : ''}`}
-                            onClick={() => setActiveSet(index)}
-                        />
-                    ))}
-                </div>
-            </section>
-
-
-
             {/* ============ CTA SECTION ============ */}
             <section className="cta-section">
                 <div className="cta-container">
@@ -750,13 +550,9 @@ const FuturisticDevOpsLanding = () => {
                             <input type="email" placeholder="Email Address" required className="interactive" />
                         </div>
                         <div className="form-group">
-                            <select required className="interactive">
-                                <option value="">What best describes you?</option>
-                                <option>CTO / Technical Director</option>
-                                <option>Engineering Manager</option>
-                                <option>DevOps Lead</option>
-                                <option>Other</option>
-                            </select>
+                            <textarea placeholder='Enter your message'>
+
+                            </textarea>
                         </div>
                         <button type="submit" className="cta-submit interactive">
                             Request Free Consultation
@@ -982,7 +778,7 @@ const FuturisticDevOpsLanding = () => {
         /* ===== TERMINAL SHOWCASE ===== */
         .terminal-showcase {
           padding: 10rem 5%;
-          display: grid;
+          display:grid;
           grid-template-columns: 1fr 1fr;
           gap: 4rem;
           max-width: 1400px;
@@ -990,6 +786,7 @@ const FuturisticDevOpsLanding = () => {
           align-items: center;
         }
         
+
         .terminal-container {
           position: relative;
         }
@@ -1140,6 +937,81 @@ const FuturisticDevOpsLanding = () => {
           margin: 0;
           color: var(--text-dim);
         }
+
+        .terminal-showcase {
+        padding: 10rem 5%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      /* Mobile styles */
+      @media (max-width: 768px) {
+        .terminal-showcase {
+          grid-template-columns: 1fr;
+          padding: 5rem 5%;
+          gap: 3rem;
+        }
+      }
+
+      /* Small mobile fixes (below 425px) */
+      @media (max-width: 425px) {
+        .terminal-showcase {
+          padding: 3rem 5%;
+          gap: 2rem;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .terminal-container {
+          width: 100%;
+          max-width: 100%;
+          padding: 0;
+        }
+
+        .terminal-glass {
+          border-radius: 12px;
+        }
+
+        .terminal-header {
+          padding: 0.6rem 1rem;
+        }
+
+        .terminal-body {
+          padding: 1rem;
+          min-height: 250px;
+        }
+
+        .terminal-tabs {
+          flex-wrap: wrap;
+          gap: 0.8rem;
+          justify-content: center;
+        }
+
+        .terminal-tabs .tab {
+          padding: 0.6rem 1rem;
+          font-size: 0.8rem;
+        }
+
+        .terminal-content h2 {
+          font-size: 2rem;
+          text-align: center;
+        }
+
+        .terminal-content p {
+          font-size: 1rem;
+          text-align: center;
+        }
+
+        .terminal-stats {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
         
         /* ===== FEATURES SECTION ===== */
         .features-section {
@@ -1421,165 +1293,7 @@ const FuturisticDevOpsLanding = () => {
         }
         }
         
-        /* ===== PRICING PLANS ===== */
-        /* ===== INTERACTIVE PRICING CARDS ===== */
-.pricing-section {
-  padding: 8rem 5%;
-  background: var(--darker);
-  position: relative;
-  overflow: hidden;
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 4rem auto 0;
-  position: relative;
-  z-index: 2;
-}
-
-.pricing-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  backdrop-filter: blur(10px);
-  transform-style: preserve-3d;
-}
-
-.pricing-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--accent), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.pricing-card:hover::before {
-  opacity: 0.1;
-}
-
-.pricing-card.selected {
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 40px var(--accent);
-  transform: translateY(-10px);
-}
-
-.pricing-card.popular {
-  border: 1px solid var(--accent);
-}
-
-.card-content {
-  position: relative;
-  z-index: 2;
-}
-
-.price {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 1.5rem 0;
-}
-
-.price span {
-  background: linear-gradient(90deg, var(--accent), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.description {
-  color: var(--text-dim);
-  margin-bottom: 2rem;
-}
-
-.features {
-  margin-bottom: 2rem;
-}
-
-.features li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.8rem;
-  color: var(--text);
-}
-
-.popular-badge {
-  position: absolute;
-  top: 3px;
-  right: 60px;
-  background: var(--accent);
-  color: var(--darker);
-  padding: 0.5rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  z-index: 33;
-}
-
-.select-indicator {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.selection-circle {
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent);
-}
-
-.card-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, var(--accent), transparent 70%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Hover animations */
-.pricing-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
-}
-
-.pricing-card:hover .features li {
-  transform: translateX(5px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .pricing-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .pricing-card {
-    padding: 2rem;
-  }
-}
-        
+       
         /* ===== CTA SECTION ===== */
         .cta-section {
           padding: 10rem 5%;
@@ -1622,7 +1336,7 @@ const FuturisticDevOpsLanding = () => {
         }
         
         .cta-form input, 
-        .cta-form select {
+        .cta-form textarea {
           width: 100%;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1634,7 +1348,7 @@ const FuturisticDevOpsLanding = () => {
         }
         
         .cta-form input:focus, 
-        .cta-form select:focus {
+        .cta-form textarea:focus {
           outline: none;
           border-color: var(--primary);
           box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2);
@@ -1672,6 +1386,8 @@ const FuturisticDevOpsLanding = () => {
             grid-template-columns: 1fr;
             padding: 4rem;
           }
+
+          
         }
         
         @media (max-width: 768px) {
@@ -1686,6 +1402,16 @@ const FuturisticDevOpsLanding = () => {
           
           .features-grid {
             grid-template-columns: 1fr;
+          }
+          .cta-content h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+          }
+          .cta-content p {
+            font-size: 1rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
           }
         }
         

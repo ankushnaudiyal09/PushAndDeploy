@@ -1,52 +1,140 @@
-import React from 'react'
-import { FaAws } from 'react-icons/fa'
-import { NavLink } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { FaAws, FaBars, FaTimes } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const navItems = [
+    { path: '/', label: 'Home' },
+    { path: '/service', label: 'Service' },
+    { path: '/about', label: 'About Us' },
+    { path: '/contact', label: 'Contact' }
+  ];
+
+  // Properly handle window resize and initial load
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    // Set initial value
+    handleResize();
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    
-      <div className="bg-[#08080e] flex justify-between h-20 w-[100%] px-4 py-1 items-center">
+    <div style={{
+      backgroundColor: '#08080e',
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      height: '80px',
+      width: '100%',
+      padding: '0 16px',
+      position: 'relative',
+      zIndex: 50
+    }}>
+      {/* Logo */}
+      <div style={{
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: '25px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        cursor: 'pointer'
+      }}>
+        <FaAws className="FaAws"/>
+        PushAndDeploy
+      </div>
 
-        <div className="text-white font-bold text-[25px] px-1 justify-center items-center mx-4 flex gap-3 cursor-pointer">
-            <FaAws  />
-            PushAndDeploy
+      {/* Desktop Menu - shows only on desktop */}
+      {isDesktop && (
+        <div style={{
+          display: 'flex',
+          gap: '25px'
+        }}>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              style={({ isActive }) => ({
+                color: isActive ? '#d1d11d' : 'white',
+                fontWeight: '600',
+                textDecoration: 'none',
+                transition: 'all 0.3s',
+                fontSize: '20px'
+              })}
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </div>
+      )}
 
-        <div className="w-full h-full flex items-center justify-center">
+      {/* Mobile Menu Button - shows only on mobile */}
+      {!isDesktop && (
+        <button
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: 'white',
+            fontSize: '24px',
+            cursor: 'pointer',
+            zIndex: 50,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      )}
 
-            <ul  className="flex gap-[25px] text-[22px] justify-center items-center ">
-
-          <NavLink to={"/"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer no-underline font-semibold
-                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
-                      Home
-                  </NavLink>
-
-
-          <NavLink to={"/service"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
-                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
-                    Service
-                  </NavLink>
-
-
-          <NavLink to={"/about"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
-                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
-                    About Us
-                  </NavLink>
-
-
-          <NavLink to={"/contact"} className={({ isActive }) => `hover:scale-90 transition-all duration-300 cursor-pointer font-semibold no-underline
-                    ${isActive ? "text-[#d1d11d]" : "text-white"}`}>
-                      Contact
-                  </NavLink>
-
-            </ul>
+      {/* Mobile Menu Dropdown */}
+      {!isDesktop && mobileMenuOpen && (
+        <div style={{
+          position: 'fixed',
+          top: '80px',
+          left: 0,
+          right: 0,
+          backgroundColor: '#08080e',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          padding: '20px 0',
+          alignItems: 'center',
+          boxShadow: '0 10px 15px rgba(0,0,0,0.1)'
+        }}>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={() => setMobileMenuOpen(false)}
+              style={({ isActive }) => ({
+                color: isActive ? '#d1d11d' : 'white',
+                fontWeight: '600',
+                textDecoration: 'none',
+                fontSize: '18px',
+                width: '100%',
+                textAlign: 'center',
+                padding: '12px 0'
+              })}
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </div>
-
-        <button type="button" className="btn btn-success text-sm flex justify-start w-[150px] mr-3 " >Get Started</button>
-
-
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

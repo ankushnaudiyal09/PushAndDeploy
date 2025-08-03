@@ -3,18 +3,68 @@ import * as Icon1 from "react-icons/bi";
 import * as Icon3 from "react-icons/hi2";
 import * as Icon2 from "react-icons/io5";
 
+const ContactDetails = () => {
+  const contactDetails = [
+    {
+      icon: "HiChatBubbleLeftRight",
+      heading: "Chat us on",
+      description: "Our friendly team is here to help.",
+      details: "info@PushAndDeploy",
+    },
+    {
+      icon: "BiWorld",
+      heading: "Visit us",
+      description: "Come and say hello at our office HQ.",
+      details:
+        "house no.30 Maharana Pratap Chowk near sports college ,Dehradun ,Uttarakhand",
+    },
+    {
+      icon: "IoCall",
+      heading: "Call us",
+      description: "Mon - Fri From 8am to 5pm",
+      details: "+123 456 7869",
+    },
+  ];
+  return (
+    <div className="w-full flex flex-col rounded-xl bg-[#132431]  p-4 lg:p-6">
+      {contactDetails.map((ele, i) => {
+        let Icon = Icon1[ele.icon] || Icon2[ele.icon] || Icon3[ele.icon]
+        return (
+          <div
+            className="flex flex-col p-3 text-sm text-gray-500"
+            key={i}
+          >
+            <div className="flex flex-row items-center gap-2">
+              <Icon size={25} />
+              <h1 className="text-lg font-semibold text-richblack-5 text-white">
+                {ele?.heading}
+              </h1>
+            </div>
+
+            <div className="w-full flex flex-col gap-1">
+              <p className="font-medium">{ele?.description}</p>
+              <p className="font-semibold">{ele?.details}</p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+
+
 const Contact = () => {
   return (
-      <div className="bg-[#030a0f]">
-      <div className="mx-auto flex w-11/12 justify-between text-white gap-5 lg:flex-row py-2">
-        {/* Contact Details */}
-        <div className="lg:w-[35%] ">
-          <ContactDetails />
-        </div>
+      <div className="bg-[#030a0f] flex min-h-screen w-[100%]">
+      <div className="mx-auto flex flex-col sm:flex-row w-11/12 justify-between text-white gap-5  py-2">
+        
 
+
+          
         {/* Contact Form */}
 
-        <div className="lg:w-[60%] border-[1px] border-[#065ea7] rounded-2xl ">
+        <div className="w-full border-[1px] border-[#065ea7] rounded-2xl ">
             <form    >
             <h1 className="font-bold text-center text-4xl mt-2 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800 ">
               Let's Connect
@@ -75,7 +125,10 @@ const Contact = () => {
             
             </div>
             </form>
-          </div>
+        </div>
+
+        {/* Contact Details */}
+        <ContactDetails />
       </div>
     </div>
   );
@@ -86,51 +139,3 @@ export default Contact;
 
 
 
-const ContactDetails = () => {
-    const contactDetails = [
-      {
-        icon: "HiChatBubbleLeftRight",
-        heading: "Chat us on",
-        description: "Our friendly team is here to help.",
-        details: "info@PushAndDeploy",
-      },
-      {
-        icon: "BiWorld",
-        heading: "Visit us",
-        description: "Come and say hello at our office HQ.",
-        details:
-          "house no.30 Maharana Pratap Chowk near sports college ,Dehradun ,Uttarakhand",
-      },
-      {
-        icon: "IoCall",
-        heading: "Call us",
-        description: "Mon - Fri From 8am to 5pm",
-        details: "+123 456 7869",
-      },
-    ];
-  return (
-      <div className="flex flex-col rounded-xl bg-[#132431]  p-4 lg:p-6">
-      {contactDetails.map((ele, i) => {
-        let Icon = Icon1[ele.icon] || Icon2[ele.icon] || Icon3[ele.icon]
-        return (
-          <div
-                className="flex flex-col p-3 text-sm text-gray-500"
-            key={i}
-          >
-            <div className="flex flex-row items-center gap-2">
-              <Icon size={25} />
-              <h1 className="text-lg font-semibold text-richblack-5 text-white">
-                {ele?.heading}
-              </h1>
-            </div>
-
-            <div  className="w-full flex flex-col gap-1">
-                <p className="font-medium">{ele?.description}</p>
-                <p className="font-semibold">{ele?.details}</p>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  )
-}

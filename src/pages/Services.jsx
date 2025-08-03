@@ -27,93 +27,7 @@ import {
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
-// Improved Three.js Floating Icons Component
-const ThreeScene = () => {
-    return (
-        <Canvas camera={{ position: [0, 0, 10], fov: 50 }} className="absolute inset-0 -z-10">
-            <ambientLight intensity={0.3} />
-            <pointLight position={[10, 10, 10]} intensity={1.5} />
-            <pointLight position={[-10, -10, -10]} color="#3b82f6" intensity={0.8} />
-            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
-            <Stars radius={50} depth={20} count={2000} factor={4} />
-            <FloatingIcon position={[2, 0, -2]} color="#60a5fa" icon="Cloud" />
-            <FloatingIcon position={[-2, 1, -1]} color="#34d399" icon="Server" />
-            <FloatingIcon position={[0, -1, -3]} color="#fbbf24" icon="Code" />
-            <FloatingIcon position={[3, 1, 0]} color="#a78bfa" icon="Shield" />
-            <FloatingIcon position={[-3, -1, -2]} color="#f472b6" icon="Database" />
-            <Particles />
-        </Canvas>
-    )
-}
 
-// Particle background
-const Particles = () => {
-    const ref = useRef()
-    const [particles] = useState(() => {
-        const positions = new Float32Array(500 * 3)
-        for (let i = 0; i < 500 * 3; i++) {
-            positions[i] = (Math.random() - 0.5) * 20
-        }
-        return positions
-    })
-
-    useFrame((state) => {
-        ref.current.rotation.x = state.clock.getElapsedTime() * 0.05
-        ref.current.rotation.y = state.clock.getElapsedTime() * 0.03
-    })
-
-    return (
-        <Points ref={ref} positions={particles} stride={3} frustumCulled={false}>
-            <PointMaterial
-                transparent
-                color="#3b82f6"
-                size={0.015}
-                sizeAttenuation={true}
-                depthWrite={false}
-            />
-        </Points>
-    )
-}
-
-const FloatingIcon = ({ position, color, icon }) => {
-    const meshRef = useRef()
-    const [hovered, setHover] = useState(false)
-
-    useFrame((state, delta) => {
-        meshRef.current.rotation.y += delta * 0.5
-        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.8) * 0.3
-    })
-
-    const IconComponent = () => {
-        switch (icon) {
-            case 'Cloud': return <Cloud size={24} color={color} />
-            case 'Server': return <Server size={24} color={color} />
-            case 'Code': return <Code size={24} color={color} />
-            case 'Shield': return <Shield size={24} color={color} />
-            case 'Database': return <Database size={24} color={color} />
-            default: return <Cloud size={24} color={color} />
-        }
-    }
-
-    return (
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-            <mesh
-                ref={meshRef}
-                position={position}
-                onPointerOver={() => setHover(true)}
-                onPointerOut={() => setHover(false)}
-            >
-                <dodecahedronGeometry args={[0.8, 0]} />
-                <meshPhongMaterial
-                    color={hovered ? '#ffffff' : color}
-                    emissive={hovered ? color : '#000000'}
-                    emissiveIntensity={hovered ? 0.5 : 0}
-                    shininess={100}
-                />
-            </mesh>
-        </Float>
-    )
-}
 
 // Enhanced Typing Effect Component
 const TypingHero = () => {
@@ -133,7 +47,7 @@ const TypingHero = () => {
     })
 
     return (
-        <p className="text-6xl md:text-6xl lg:text-7xl font-bold mb-6 text-center">
+        <p className="text-2xl md:text-4xl lg:text-6xl font-bold mb-6 text-center">
             Enterprise <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">{text}</span>
             <Cursor cursorColor="#3b82f6" />
         </p>
@@ -172,42 +86,10 @@ const ServiceCard = ({ icon, title, description, features, index }) => {
     )
 }
 
-// Testimonial Component
-const TestimonialCard = ({ quote, author, role, company, index }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-gray-900/50 to-gray-950/50 backdrop-blur-sm rounded-2xl border border-gray-800/30 p-8"
-        >
-            <div className="flex items-start mb-6">
-                <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-1 rounded-full mr-4">
-                    <div className="bg-gray-900 rounded-full p-1">
-                        <div className="bg-gray-800 rounded-full w-12 h-12 flex items-center justify-center">
-                            <Users className="text-blue-400" size={20} />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 className="text-lg font-semibold text-white">{author}</h4>
-                    <p className="text-gray-500 text-sm">{role} • {company}</p>
-                </div>
-            </div>
-            <p className="text-gray-400 italic">"{quote}"</p>
-        </motion.div>
-    )
-}
+
 
 // Main Page Component
 export default function ModernCloudPage() {
-    const [mounted, setMounted] = useState(false)
-    const [activeTab, setActiveTab] = useState(0)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
 
     const tabs = [
         { name: "Architecture", icon: <Server size={18} /> },
@@ -216,6 +98,31 @@ export default function ModernCloudPage() {
         { name: "Networking", icon: <Globe size={18} /> },
         { name: "Monitoring", icon: <Monitor size={18} /> }
     ]
+
+
+    const [mounted, setMounted] = useState(false)
+    const [activeTab, setActiveTab] = useState(0)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+
+    // Add this state variable
+    const [isAutoRotating, setIsAutoRotating] = useState(true);
+
+    // Update your useEffect
+    useEffect(() => {
+        if (!isAutoRotating) return;
+
+        const id = setInterval(() => {
+            setActiveTab(prev => (prev === 4 ? 0 : prev + 1));
+        }, 10000);
+
+        return () => {
+            clearInterval(id);
+        };
+    }, [isAutoRotating]); // Add dependency
 
     const services = [
         {
@@ -286,32 +193,61 @@ export default function ModernCloudPage() {
         }
     ]
 
-    const testimonials = [
-        {
-            quote: "Their cloud solutions reduced our infrastructure costs by 40% while improving system reliability.",
-            author: "Sarah Johnson",
-            role: "CTO",
-            company: "TechStart Inc"
-        },
-        {
-            quote: "The security implementation was flawless. We passed our compliance audit with zero findings.",
-            author: "Michael Rodriguez",
-            role: "Security Director",
-            company: "FinSecure"
-        },
-        {
-            quote: "Database optimization services helped us handle 3x more traffic without additional resources.",
-            author: "Emma Chen",
-            role: "Lead Developer",
-            company: "DataFlow"
-        }
-    ]
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white overflow-x-hidden">
+
+            {/* 2. Services Showcase */}
+            <section className="py-12 relative">
+                <div className="container mx-auto px-6">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="max-w-4xl mx-auto text-center mb-16"
+                    >
+                        <p className="text-[40px] sm:text-[80px] font-bold mb-4">
+                            Our <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Services</span>
+                        </p>
+                        <p className="text-xl md:text-2xl text-gray-400">
+                            Comprehensive cloud solutions tailored to your business needs
+                        </p>
+                    </motion.div>
+
+                    <div
+                        style={{
+                            display: 'grid',
+                            gap: '32px',
+                            gridTemplateColumns: '1fr',
+                            width: '100%'
+                        }}
+                    >
+                        {/* Dynamic style injection for responsive breakpoints */}
+                        <style>
+                            {`
+                                @media (min-width: 768px) {
+                                    .services-grid {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                    }
+                                }
+                                @media (min-width: 1024px) {
+                                    .services-grid {
+                                    grid-template-columns: repeat(3, 1fr) !important;
+                                    }
+                                }
+                                `}
+                        </style>
+
+                        {services.map((service, i) => (
+                            <ServiceCard key={i} {...service} index={i} />
+                        ))}
+                    </div>
+
+                </div>
+            </section>
+            
+
             {/* 1. Hero Section with Three.js and Typing Effect */}
             <section className="relative min-h-screen flex items-start justify-center overflow-hidden mt-20">
-                {/* {mounted && <ThreeScene />} */}
 
                 <div className="container mx-auto px-6 relative z-10 flex justify-center items-center">
                     <div className="max-w-6xl mx-auto text-center ">
@@ -337,7 +273,7 @@ export default function ModernCloudPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4 }}
-                                className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto mt-4"
+                                className="text-md md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto mt-4"
                             >
                                 We architect, deploy, and optimize cloud-native solutions with enterprise-grade security and performance.
                             </motion.p>
@@ -346,7 +282,7 @@ export default function ModernCloudPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.6 }}
-                                className="flex gap-4 justify-center flex-wrap"
+                                className="flex gap-1 md:gap-4 justify-center flex-wrap"
                             >
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
@@ -372,7 +308,7 @@ export default function ModernCloudPage() {
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
-                    className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+                    className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center "
                 >
                     <span className="text-gray-400 mb-2">Scroll to explore</span>
                     <div className="w-8 h-12 rounded-3xl border-2 border-gray-700 flex justify-center p-2">
@@ -391,41 +327,8 @@ export default function ModernCloudPage() {
                 </motion.div>
             </section>
 
-            {/* 2. Services Showcase */}
-            <section className="py-32 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black -z-10"></div>
-                <div className="container mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto text-center mb-16"
-                    >
-                        <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: "100px" }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                            className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"
-                        />
-                        <h2 className="text-4xl font-bold mb-4">
-                            Our <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Services</span>
-                        </h2>
-                        <p className="text-xl text-gray-400">
-                            Comprehensive cloud solutions tailored to your business needs
-                        </p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {services.map((service, i) => (
-                            <ServiceCard key={i} {...service} index={i} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* 3. Tabs Section */}
-            <section className="py-32 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm relative mx-auto">
+            <section className="py-20 md:py-32 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm relative mx-auto">
                 <div className="absolute inset-0 bg-grid-gray-900/[0.04] bg-[length:24px_24px] -z-10"></div>
                 <div className="container mx-auto px-6">
                     <motion.div
@@ -441,11 +344,11 @@ export default function ModernCloudPage() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                 >
-                                    <p className="text-6xl font-bold mb-8 w-full">
+                                    <p className="text-4xl md:text-6xl font-bold mb-8 w-full text-center">
                                         Solutions for <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Every Need</span>
                                     </p>
 
-                                    <p className="text-gray-400 mb-8">
+                                    <p className="text-gray-400 mb-8 text-center">
                                         Our comprehensive suite of cloud services covers all aspects of modern infrastructure, security, and operations.
                                     </p>
 
@@ -470,11 +373,18 @@ export default function ModernCloudPage() {
                             </div>
 
                             <div className="lg:w-2/3 mx-auto">
-                                <div className="flex flex-wrap gap-2 mb-8">
+                                <div
+                                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 flex-wrap gap-2 mb-8"
+                                    onMouseEnter={() => setIsAutoRotating(false)}
+                                    onMouseLeave={() => setIsAutoRotating(true)}
+                                >
                                     {tabs.map((tab, i) => (
                                         <motion.button
                                             key={i}
-                                            onClick={() => setActiveTab(i)}
+                                            onClick={() => {
+                                                setActiveTab(i);
+                                                setIsAutoRotating(false); // Also pause when manually clicking a tab
+                                            }}
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             transition={{ delay: i * 0.1 }}
@@ -494,11 +404,11 @@ export default function ModernCloudPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
                                         transition={{ duration: 0.3 }}
-                                        className="bg-gradient-to-br from-gray-900/70 to-gray-950/70 backdrop-blur-sm rounded-2xl border border-gray-800/50 p-8"
+                                        className="bg-gradient-to-br from-gray-900/70 to-gray-950/70 backdrop-blur-sm rounded-2xl border border-gray-800/50 p-8 shadow-2xl shadow-cyan-600"
                                     >
                                         {activeTab === 0 && (
                                             <div>
-                                                <h3 className="text-2xl font-semibold text-white mb-4">Cloud Architecture</h3>
+                                                <h3 className="text-2xl font-semibold text-white mb-4 ">Cloud Architecture</h3>
                                                 <p className="text-gray-400 mb-6">
                                                     Design and implementation of scalable, resilient cloud infrastructure using
                                                     industry best practices and cutting-edge technologies.
@@ -593,63 +503,8 @@ export default function ModernCloudPage() {
                 </div>
             </section>
 
-            {/* 4. Stats Section */}
-            <section className="py-32 bg-black/50 backdrop-blur-sm relative">
-                <div className="absolute inset-0 bg-grid-gray-900/[0.02] bg-[length:40px_40px] -z-10"></div>
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {[
-                            { value: "200+", label: "Deployments", icon: <Cloud size={32} className="text-blue-400" /> },
-                            { value: "99.99%", label: "Uptime", icon: <Cpu size={32} className="text-emerald-400" /> },
-                            { value: "50ms", label: "Avg Response", icon: <BarChart2 size={32} className="text-purple-400" /> },
-                            { value: "24/7", label: "Support", icon: <Users size={32} className="text-amber-400" /> }
-                        ].map((stat, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                viewport={{ once: true }}
-                                className="bg-gradient-to-br from-gray-900/70 to-gray-950/70 backdrop-blur-sm rounded-2xl border border-gray-800/30 p-8 text-center hover:shadow-lg hover:shadow-blue-500/10 transition-all"
-                            >
-                                <div className="flex justify-center mb-4">
-                                    {stat.icon}
-                                </div>
-                                <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
-                                <div className="text-gray-400">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Testimonials Section */}
-            <section className="py-32 bg-gradient-to-br from-gray-900/50 to-black/50">
-                <div className="container mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto text-center mb-16"
-                    >
-                        <h2 className="text-4xl font-bold mb-4">
-                            Trusted by <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Industry Leaders</span>
-                        </h2>
-                        <p className="text-xl text-gray-400">
-                            Hear from companies that transformed their infrastructure with our solutions
-                        </p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {testimonials.map((testimonial, i) => (
-                            <TestimonialCard key={i} {...testimonial} index={i} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* 5. CTA Section */}
-            <section className="py-32 bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-sm relative overflow-hidden">
+            <section className="py-32 bg-gradient-to-br from-black/50 to-gray-900/50 backdrop-blur-sm relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-white/[0.03] bg-[length:24px_24px] -z-10"></div>
                 <div className="container mx-auto px-6 ">
                     <motion.div
@@ -658,10 +513,10 @@ export default function ModernCloudPage() {
                         viewport={{ once: true }}
                         className="max-w-4xl mx-auto text-center "
                     >
-                        <p className="text-4xl md:text-5xl font-bold mb-6">
+                        <p className="text-3xl md:text-6xl font-bold mb-6">
                             Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Transform</span> Your Infrastructure?
                         </p>
-                        <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto mt-3">
+                        <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto mt-3">
                             Schedule a consultation with our cloud architects today.
                         </p>
                         <div className="flex gap-4 justify-center mt-3">
@@ -669,7 +524,7 @@ export default function ModernCloudPage() {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full font-medium text-black"
+                                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full font-medium text-white"
                                 >
                                     Get Started
                                 </motion.button>                            
@@ -678,7 +533,7 @@ export default function ModernCloudPage() {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-2 bg-transparent  bg-gradient-to-r from-blue-600 to-blue-800 rounded-full font-medium text-black"
+                                    className="px-8 py-2 bg-transparent  bg-gradient-to-r from-blue-600 to-blue-800 rounded-full font-medium text-white"
                                 >
                                     Contact Us
                                 </motion.button>                            
